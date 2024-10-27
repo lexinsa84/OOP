@@ -1,18 +1,23 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FamilyTree {
+public class FamilyTree implements Serializable{
     private List<Person> people;
 
     public FamilyTree() {
         this.people = new ArrayList<>();
     }
 
-    public boolean addPeople(Person person) {
-        return people.add(person);
+    public void addPerson(Person person) {
+        people.add(person);
     }
 
-    public Person findPersonByName(String name) {
+    public List<Person> getPeople() {
+        return people;
+    }
+
+    public Person findPerson(String name) {
         for (Person person : people) {
             if (person.getName().equals(name)) {
                 return person;
@@ -20,7 +25,15 @@ public class FamilyTree {
         }
         return null;
     }
-    public List<Person> getChildren(Person parent){
-        return parent.getChildren();
+
+    public void displayTree(Person person, int generation) {
+        if (person == null) return;
+
+        String indent = " ".repeat(generation * 4);
+        System.out.println(indent + person);
+
+        for (Person child : person.getChildren()) {
+            displayTree(child, generation + 1);
+        }
     }
 }

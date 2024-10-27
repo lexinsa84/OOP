@@ -1,27 +1,50 @@
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         FamilyTree familyTree = new FamilyTree();
-        Person person1 = new Person("Алексей", 1984);
-        Person person2 = new Person("Анатолий", 1957);
-        Person person3 = new Person("Валентина", 1957);
-        Person person4 = new Person("Арсений", 2018);
-        person1.setFather(person2);
-        person1.setMather(person3);
-        person1.addChildren(person4);
+        FileManageable fileManageable = new FileHandler();
+
+        // Создаем и добавляем людей в дерево
+        Person john = new Person("John", "Male", 70);
+        Person mary = new Person("Mary", "Female", 68);
+        Person david = new Person("David", "Male", 40);
+        Person lisa = new Person("Lisa", "Female", 38);
+        Person james = new Person("James", "Male", 18);
+
+        john.addChild(david);
+        mary.addChild(david);
+        david.addChild(james);
+        lisa.addChild(james);
+
+        david.setFather(john);
+        david.setMather(mary);
+        james.setFather(david);
+        james.setMather(lisa);
+
+        familyTree.addPerson(john);
+        familyTree.addPerson(mary);
+        familyTree.addPerson(david);
+        familyTree.addPerson(lisa);
+        familyTree.addPerson(james);
 
 
-        familyTree.addPeople(person1);
-        familyTree.addPeople(person2);
-        familyTree.addPeople(person3);
-        familyTree.addPeople(person4);
 
-        List<Person> personListChildren = familyTree.getChildren(person1);
-        for (Person child : personListChildren) {
-            System.out.println(child);
-            Person findByNamePerson = familyTree.findPersonByName("Анатолий");
-            System.out.println(findByNamePerson);
+        // Запись данных в файл
+        String filename = "family_tree.dat";
+        try {
+            fileManageable.writeToFile(filename, familyTree);
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи в файл: " + e.getMessage());
+        }
+
+        // Чтение данных из файла
+        try {
+            FamilyTree loadedFamilyTree = fileManageable.readFromFile(filename);
+            loadedFamilyTree.displayTree(loadedFamilyTree.findPerson("John"), 0);
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Ошибка при чтении из файла: " + e.getMessage());
         }
     }
 }

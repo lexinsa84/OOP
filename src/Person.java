@@ -1,16 +1,20 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Person {
+public class Person implements Serializable {
     private String name;
-    private int birthday;
+    private String gender;
+    private int age;
     private Person father;
     private Person mather;
     private List<Person> children;
+    private static final long serialVersionUID = 1L;
 
-    public Person(String name, int birthday) {
+    public Person(String name, String gender, int age) {
         this.name = name;
-        this.birthday = birthday;
+        this.gender = gender;
+        this.age = age;
         this.children = new ArrayList<>();
     }
 
@@ -18,8 +22,20 @@ public class Person {
         return name;
     }
 
-    public int getBirthday() {
-        return birthday;
+    public String getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public List<Person> getChildren() {
+        return children;
+    }
+
+    public void addChild(Person child) {
+        children.add(child);
     }
 
     public void setFather(Person father) {
@@ -30,22 +46,8 @@ public class Person {
         this.mather = mather;
     }
 
-    public boolean addChildren(Person child) {
-        return children.add(child);
-    }
-
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", birthday=" + birthday +
-                ", father=" + father +
-                ", mather=" + mather +
-                ", children=" + children +
-                '}';
-    }
-
-    public List<Person> getChildren() {
-        return children;
+        return "Name: " + name + ", Gender: " + gender + ", Age: " + age;
     }
 }
