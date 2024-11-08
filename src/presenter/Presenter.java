@@ -1,5 +1,6 @@
 package presenter;
 
+import model.FamilyTree;
 import model.service.Service;
 import model.util.FileHandler;
 import view.View;
@@ -17,9 +18,9 @@ public class Presenter {
         fileHandler = new FileHandler();
     }
 
-    public void addStudent(String firstName, String lastName, String patronymic, LocalDate birth, String gender) {
+    public void addPerson(String name, LocalDate birth, String gender) {
 
-        service.addPerson(firstName,lastName,patronymic,birth,gender);
+        service.addPerson(name, birth, gender);
         view.printAnswer("Человек добавлен с список!");
     }
 
@@ -38,7 +39,10 @@ public class Presenter {
         service.sortByAge();
         printPersonInfo();
     }
-    public void saveFile(){
-        fileHandler.saveFile();
+    public void saveFile(FamilyTree<?> familyTree,String filePath){
+        fileHandler.saveFile(familyTree,filePath);
+    }
+    public void loadFile(String filePath){
+        fileHandler.loadFile(filePath);
     }
 }

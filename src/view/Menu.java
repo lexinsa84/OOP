@@ -14,6 +14,8 @@ public class Menu {
         commandList.add(new GetPersonInfo(consoleUi));
         commandList.add(new SortByName(consoleUi));
         commandList.add(new SortByAge(consoleUi));
+        commandList.add(new SaveFile(consoleUi));
+        commandList.add(new LoadFile(consoleUi));
         commandList.add(new Finish(consoleUi));
     }
 

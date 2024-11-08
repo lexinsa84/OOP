@@ -9,7 +9,7 @@ public class SaveFile extends Command{
     }
     @Override
     public void execute() {
-        consoleUi.addPersonInput();
+        consoleUi.saveFilePath();
     }
 }
 

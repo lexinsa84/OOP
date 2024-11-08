@@ -1,12 +1,16 @@
 package model.service;
 
 import model.FamilyTree;
-import model.Person;
+import model.Person.Person;
 import model.util.FileHandler;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Service {
+public class
+
+Service {
 
     FamilyTree<Person> familyTree;
     FileHandler fileHandler;
@@ -16,27 +20,18 @@ public class Service {
         fileHandler = new FileHandler();
     }
 
-    public void addPerson(String firstName, String lastName, String patronymic, LocalDate birth, String gender) {
-        Person person = new Person(firstName, lastName, patronymic, birth, gender);
+    public void addPerson(String name, LocalDate birth, String gender) {
+        Person person = new Person(name, birth, gender);
         familyTree.addMember(person);
     }
-
 
     public String personFamilyTreeInfo() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Список людей:\n");
-        for (Person student : familyTree) {
-            stringBuilder.append(student);
+        for (Person person : familyTree) {
+            stringBuilder.append(person);
             stringBuilder.append("\n");
         }
-
-
-//        Iterator<Student> iterator= StudentGroup.iterator();
-//        while (iterator.hasNext()){
-//            Student new_student = iterator.next();
-//            stringBuilder.append(student);
-//            stringBuilder.append("\n");
-//        }
 
         return stringBuilder.toString();
     }

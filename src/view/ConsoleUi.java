@@ -1,5 +1,7 @@
 package view;
 
+import model.FamilyTree;
+import model.Person.Person;
 import presenter.Presenter;
 
 import java.text.ParseException;
@@ -88,11 +90,7 @@ public class ConsoleUi implements View {
 
     public void addPersonInput() {
         hello("Введите имя:");
-        String firstName = scanner.nextLine();
-        hello("Введите фамилию");
-        String lastName = scanner.nextLine();
-        hello("Введите отчество:");
-        String patronymic = scanner.nextLine();
+        String name = scanner.nextLine();
         hello("Введите день:");
         int day = scanner.nextInt();
         hello("Введите месяц");
@@ -104,15 +102,23 @@ public class ConsoleUi implements View {
 
         String birthString = day + "." + month + "." + year;
 
-        LocalDate birth = null;
+        LocalDate birthDate = null;
         try {
-            birth = LocalDate.of(year, month, day);
+            birthDate = LocalDate.of(year, month, day);
 
         } catch (DateTimeParseException e) {
-            System.out.println("Неверный формат даты. Попробуйте снова.");
+            hello("Неверный формат даты. Попробуйте снова.");
         }
 
-        presenter.addStudent(firstName, lastName, patronymic, birth, gender);
+        presenter.addPerson(name,birthDate, gender);
+    }
+    public void saveFilePath(){
+        String filePath = "familyFree.dat";
+        presenter.saveFile(new FamilyTree<>(),filePath);
+    }
+    public void loadFilePath(){
+        String filePath = "familyFree.dat";
+        presenter.loadFile(filePath);
     }
 
     @Override
